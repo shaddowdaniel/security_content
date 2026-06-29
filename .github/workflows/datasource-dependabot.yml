@@ -11,13 +11,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: 'develop'
           token: ${{ secrets.DATA_SOURCES_DEPENDABOT }}
       
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
           architecture: 'x64'  # or the version your script requires
@@ -45,7 +45,7 @@ jobs:
           git status
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.DATA_SOURCES_DEPENDABOT }}
           commit-message: Updated TAs
@@ -53,5 +53,6 @@ jobs:
           base: develop
           title: Automated Splunk TA Update ${{ github.run_number }}
           body: "This PR contains updates to Splunk TAs made by GitHub Actions workflow."
-          paths: |
-            security_content/data_sources/**
+          add-paths: |
+            data_sources/**
+            contentctl.yml
